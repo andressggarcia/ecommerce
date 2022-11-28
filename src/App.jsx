@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import ProductsDetail from './pages/ProductsDetail'
 import Login from './pages/Login'
 import NavBar from './components/NavBar'
-import Purchases from './pages/purchases'
+import Purchases from './pages/Purchases'
 import LoadingScreen from './components/LoadingScreen'
 import { useSelector } from 'react-redux'
 

@@ -54,7 +54,7 @@ const Home = () => {
                 {products.map(product => (
                     <li key={product.id}>
                         <Link to={`/detail/${product.id}`}>
-                            <img src={product.productImgs[0]} alt="" style={{width: "200px", heigth: "200px" }} />
+                            <img className='img-home' src={product.productImgs[0]} alt="" style={{width: "200px", heigth: "200px" }} />
                             <div className='br'></div>
                             <div className='value'>
                                 <h5>{product.title}</h5>

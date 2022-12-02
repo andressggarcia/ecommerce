@@ -10,29 +10,29 @@ const Home = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
 
-    const[categoriesList, setCategoriesList] = useState([])
-    const[inputSearch, setInputSearch]= useState("")
+    const [categoriesList, setCategoriesList] = useState([])
+    const [inputSearch, setInputSearch] = useState("")
 
-    useEffect(() =>{
+    useEffect(() => {
         dispatch(getProductsThunk())
 
         axios.get("https://e-commerce-api.academlo.tech/api/v1/products/categories")
-        .then(res=> setCategoriesList(res.data.data.categories))
-    },[])
-    console.log(products) 
+            .then(res => setCategoriesList(res.data.data.categories))
+    }, [])
+    console.log(products)
     return (
         <div className='div-container'>
             <div className='input-btn'>
                 <div className='input-search'>
                     <InputGroup className="mb-3">
                         <Form.Control
-                        placeholder="Product"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                        value={inputSearch}
-                        onChange={e => setInputSearch(e.target.value)}
+                            placeholder="Product"
+                            aria-label="Recipient's username"
+                            aria-describedby="basic-addon2"
+                            value={inputSearch}
+                            onChange={e => setInputSearch(e.target.value)}
                         />
-                        <Button 
+                        <Button
                             variant="outline-secondary"
                             onClick={() => dispatch(filterProductNameThunk(inputSearch))}
                         >
@@ -40,34 +40,38 @@ const Home = () => {
                         </Button>
                     </InputGroup>
                 </div>
-                <div className='btn-category'>
-                {
-                        categoriesList.map(category =>(
-                        <Button className='btn btn-secondary' key={category.id} onClick={()=> dispatch(filterProductsThunk(category.id))}>
-                            {category.name}
-                        </Button>
-                    ))
-                }
-                </div>
             </div>
-            <ul>
-                {products.map(product => (
-                    <li key={product.id}>
-                        <Link to={`/detail/${product.id}`}>
-                            <img className='img-home' src={product.productImgs[0]} alt="" style={{width: "200px", heigth: "200px" }} />
-                            <div className='br'></div>
-                            <div className='value'>
-                                <h5>{product.title}</h5>
-                                <div className='price'>
-                                    <p>Price:</p>
-                                    <p className='p-price'>{product.price}</p>
+            <div className='container-category__ul'>
+                <div className='btn-category'>
+                    <h4>Category</h4>
+                    <div className='br-two'></div>
+                    {
+                        categoriesList.map(category => (
+                            <Button className='btn btn-secondary' key={category.id} onClick={() => dispatch(filterProductsThunk(category.id))} style={{color:"#515151"}}>
+                                {category.name}
+                            </Button>
+                        ))
+                    }
+                </div>
+                <ul className='ul-home'>
+                    {products.map(product => (
+                        <li className='li-home' key={product.id}>
+                            <Link to={`/detail/${product.id}`}>
+                                <img className='img-home' src={product.productImgs[0]} alt="" style={{ width: "200px", heigth: "200px" }} />
+                                <div className='br'></div>
+                                <div className='value'>
+                                    <h5>{product.title}</h5>
+                                    <div className='price'>
+                                        <p>Price:</p>
+                                        <p className='p-price'>{product.price}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    </li>
-                    
-                ))}
-            </ul>
+                            </Link>
+                        </li>
+
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };
